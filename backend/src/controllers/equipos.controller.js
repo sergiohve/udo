@@ -14,8 +14,10 @@ export const getEquipos = async (req, res) => {
 };
 
 export const createNewEquipo = async (req, res) => {
-  const { tipoMaquina, modelo, marca, serialMaquina, modeloMotor, serialMotor, arregloPlacas, plantaUbicacion, condicion, ano  } = req.body;
- 
+  const { nombreUnidad, tipoMaquina, modelo, marca, serialMaquina, modeloMotor, serialMotor, arregloPlacas, plantaUbicacion, condicion, ano, fechaReparacion,
+    serialUnidad, tallerReparacion, nombreMecanico, ubicacionTaller, nombreConductor,
+    nombrePieza, marcaPieza, serialPieza, descripCambioAceite, marcaAceite } = req.body;
+
 
   if (tipoMaquina == null || modelo == null) {
     return res
@@ -30,6 +32,7 @@ export const createNewEquipo = async (req, res) => {
     const pool = await getConnection();
     await pool
       .request()
+      .input("nombreUnidad", sql.VarChar, nombreUnidad)
       .input("tipoMaquina", sql.VarChar, tipoMaquina)
       .input("modelo", sql.VarChar, modelo)
       .input("marca", sql.VarChar, marca)
@@ -40,6 +43,17 @@ export const createNewEquipo = async (req, res) => {
       .input("plantaUbicacion", sql.VarChar, plantaUbicacion)
       .input("condicion", sql.VarChar, condicion)
       .input("ano", sql.VarChar, ano)
+      .input("fechaReparacion", sql.VarChar, fechaReparacion)
+      .input("serialUnidad", sql.VarChar, serialUnidad)
+      .input("tallerReparacion", sql.VarChar, tallerReparacion)
+      .input("nombreMecanico", sql.VarChar, nombreMecanico)
+      .input("ubicacionTaller", sql.VarChar, ubicacionTaller)
+      .input("nombreConductor", sql.VarChar, nombreConductor)
+      .input("nombrePieza", sql.VarChar, nombrePieza)
+      .input("marcaPieza", sql.VarChar, marcaPieza)
+      .input("serialPieza", sql.VarChar, serialPieza)
+      .input("descripCambioAceite", sql.VarChar, descripCambioAceite)
+      .input("marcaAceite", sql.VarChar, marcaAceite)
       .query(querys.addNewEquipo);
 
     res.json({
@@ -53,7 +67,18 @@ export const createNewEquipo = async (req, res) => {
         arregloPlacas,
         plantaUbicacion,
         condicion,
-        ano
+        ano,
+        fechaReparacion,
+        serialUnidad,
+        tallerReparacion,
+        nombreMecanico,
+        ubicacionTaller,
+        nombreConductor,
+        nombrePieza,
+        marcaPieza,
+        serialPieza,
+        descripCambioAceite,
+        marcaAceite
       },
     });
   } catch (error) {
@@ -94,7 +119,9 @@ export const deleteEquipoById = async (req, res) => {
 };
 
 export const updateEquipoById = async (req, res) => {
-  const { tipoMaquina, modelo, marca, serialMaquina, modeloMotor, serialMotor, arregloPlacas, plantaUbicacion, condicion, ano  } = req.body;
+  const { tipoMaquina, modelo, marca, serialMaquina, modeloMotor, serialMotor, arregloPlacas, plantaUbicacion, condicion, ano, fechaReparacion,
+    serialUnidad, tallerReparacion, nombreMecanico, ubicacionTaller, nombreConductor,
+    nombrePieza, marcaPieza, serialPieza, descripCambioAceite, marcaAceite } = req.body;
   const { id } = req.params;
 
   if (tipoMaquina == null || modelo == null || marca == null) {
@@ -103,19 +130,30 @@ export const updateEquipoById = async (req, res) => {
 
   const pool = await getConnection();
   await pool
-      .request()
-      .input("tipoMaquina", sql.VarChar, tipoMaquina)
-      .input("modelo", sql.VarChar, modelo)
-      .input("marca", sql.VarChar, marca)
-      .input("serialMaquina", sql.VarChar, serialMaquina)
-      .input("modeloMotor", sql.VarChar, modeloMotor)
-      .input("serialMotor", sql.VarChar, serialMotor)
-      .input("arregloPlacas", sql.VarChar, arregloPlacas)
-      .input("plantaUbicacion", sql.VarChar, plantaUbicacion)
-      .input("condicion", sql.VarChar, condicion)
-      .input("ano", sql.VarChar, ano)
-      .input("id", sql.Int, id)
+    .request()
+    .input("tipoMaquina", sql.VarChar, tipoMaquina)
+    .input("modelo", sql.VarChar, modelo)
+    .input("marca", sql.VarChar, marca)
+    .input("serialMaquina", sql.VarChar, serialMaquina)
+    .input("modeloMotor", sql.VarChar, modeloMotor)
+    .input("serialMotor", sql.VarChar, serialMotor)
+    .input("arregloPlacas", sql.VarChar, arregloPlacas)
+    .input("plantaUbicacion", sql.VarChar, plantaUbicacion)
+    .input("condicion", sql.VarChar, condicion)
+    .input("ano", sql.VarChar, ano)
+    .input("fechaReparacion", sql.VarChar, fechaReparacion)
+    .input("serialUnidad", sql.VarChar, serialUnidad)
+    .input("tallerReparacion", sql.VarChar, tallerReparacion)
+    .input("nombreMecanico", sql.VarChar, nombreMecanico)
+    .input("ubicacionTaller", sql.VarChar, ubicacionTaller)
+    .input("nombreConductor", sql.VarChar, nombreConductor)
+    .input("nombrePieza", sql.VarChar, nombrePieza)
+    .input("marcaPieza", sql.VarChar, marcaPieza)
+    .input("serialPieza", sql.VarChar, serialPieza)
+    .input("descripCambioAceite", sql.VarChar, descripCambioAceite)
+    .input("marcaAceite", sql.VarChar, marcaAceite)
+    .input("id", sql.Int, id)
     .query(querys.updateEquipoById);
 
-    res.json("Registro actualizado con éxito")
+  res.json("Registro actualizado con éxito")
 };

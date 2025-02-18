@@ -26,7 +26,7 @@ export const registerCtrl = async (req, res) => {
 
 export const loginCtrl = async (req, res) => {
   const { email, password } = req.body;
-
+console.log(email, password)
   try {
     const pool = await getConnection();
     const result = await pool
@@ -38,17 +38,20 @@ export const loginCtrl = async (req, res) => {
       res.status(401).json({ message: "Usuario no encontrado", ok: false });
     } else {
       const user = result.recordset[0];
-
-      const isMatch = await bcrypt.compare(password, user.Password);
-      if (!isMatch) {
+      const userPassword= user.password.trim()
+      const passwordSpace=password.trim()
+     // const isMatch = await bcrypt.compare(userPassword, passwordSpace);
+      console.log(userPassword, passwordSpace)
+      if (userPassword!==passwordSpace) {
         return res.status(401).json({ message: "Contraseña incorrecta", ok: false });
+      }else{
+        res.json({ message: "Inicio de sesión exitoso", ok: true });
       }
+      // const payload = { userId: user.id, email: user.email };
+      // const secretKey = process.env.JWT_SECRET;
+      // const token = jwt.sign(payload, secretKey, { expiresIn: "1h" });
 
-      const payload = { userId: user.id, email: user.email };
-      const secretKey = process.env.JWT_SECRET;
-      const token = jwt.sign(payload, secretKey, { expiresIn: "1h" });
-
-      res.json({ message: "Inicio de sesión exitoso", token, ok: true });
+     
     }
   } catch (err) {
     console.error(err);

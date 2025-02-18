@@ -3,7 +3,7 @@ import sql from "mssql";
 const dbSettings = {
   user: "sergiohve",
   password: "24118642",
-  server: "localhost",
+  server: "DESKTOP-I780GS8",
   database: "webstore",
   options: {
     encrypt: true,
