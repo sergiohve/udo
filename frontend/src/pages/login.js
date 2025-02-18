@@ -5,8 +5,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Grid } from "@material-ui/core";
-
+import LogoLogin from "../assets/logoLogin.jpeg"
 const useStyles = makeStyles((theme) => ({
+  root: {
+  
+    alignItems: "center",
+  },
   paper: {
     margin: theme.spacing(8, 4),
     display: "flex",
@@ -14,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   image: {
-    backgroundImage:
-      "url(https://media.istockphoto.com/id/1830163120/es/foto/grupo-de-programadores-inform%C3%A1ticos-hablando-mientras-trabajan-en-la-oficina-de-ti.webp?b=1&s=612x612&w=0&k=20&c=eM8ovaD5Iu1xgVFRxIp8LN-7yH7q5gC1_dbfb0IShNk=)",
+    backgroundImage: `url(${LogoLogin})`,
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -82,6 +85,7 @@ function Login() {
         md={6}
         className={`h-[100vh]  mt-[40px] text-[20px] text-[#fff] items-center text-center ${classes.image}`}
       />
+      
 
       <Grid
         item
@@ -91,9 +95,11 @@ function Login() {
         className={`h-[100vh] mt-[40px] text-[20px] items-center text-center`}
       >
         <div className={classes.paper}>
+       
           <Typography component="h1" variant="h5">
             Inicia sesión
           </Typography>
+          <div className="mt-1 mb-2 te text-[#FF0000]">{messageError}</div>
           <form className={classes.form} onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
@@ -119,7 +125,7 @@ function Login() {
               onChange={handleChangePassword}
               autoComplete="current-password"
             />
-            <div className="mt-1 mb-2 te text-[#FF0000]">{messageError}</div>
+            
 
             <Button
               type="submit"
@@ -131,6 +137,7 @@ function Login() {
               Iniciar sesión
             </Button>
           </form>
+         
         </div>
       </Grid>
     </Grid>

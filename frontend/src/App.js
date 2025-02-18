@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Historial from "./pages/historial";
 import GestionUnidades from "./pages/gestionUnidades";
+import ReporteUnidades from "./pages/reporteUnidades";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,8 +61,6 @@ export default function App() {
   return (
     <BrowserRouter>
       <Grid className={classes.root}>
-       
-       
         <Grid>
           <Routes>
             {!authenticate ? (
@@ -70,6 +69,8 @@ export default function App() {
               <>
               <Route path="/historial" element={<Historial />} />
               <Route path="/gestionUnidades" element={<GestionUnidades />} />
+              <Route path="/reporteUnidades" element={<ReporteUnidades />} />
+              
               </>
               
             )}
